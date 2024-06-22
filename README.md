@@ -1,2 +1,2 @@
 # Automation
-Simple tools for automating stuff in our organization .
+Simple tools for automating tasks in our organization .
