@@ -38,16 +38,5 @@ set "v1=!major1!!minor1!!patch1!"
 set "v2=!major2!!minor2!!patch2!"
 
 rem Compare versions
-if "!v1!" geq "!v2!" (
-    echo True
-) else (
-    echo False
-)
-
-exit /b
-
-rem Example usage
-:main
-call :compare_versions %1 %2
-endlocal
+if "!v1!" geq "!v2!" (echo True) else (echo False)
 exit /b
