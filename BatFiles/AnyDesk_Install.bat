@@ -11,9 +11,7 @@ set AnyDesk_Install="C:\Program Files (x86)\AnyDesk\AnyDesk(Install).exe"
 :: Function to get the installed version of AnyDesk
 echo Getting The Installed Version
 for /f "delims=" %%i in ('%AnyDesk_Exe% --version') do set Installed_Version=%%i
-    if "%Installed_Version%"=="" (
-        set Installed_Version=0.0.0
-    )
+    if "%Installed_Version%"=="" (set Installed_Version=0.0.0)
     goto compare
 
 :compare
@@ -25,9 +23,7 @@ for /f "delims=" %%i in ('#CompareVersion %Installed_Version% %ANYDESK_VERSION%'
 
 :continue
 echo Instal Condition  : %Install_Condition%
-if %Install_Condition%==True (
-    echo AnyDesk is already installed with the required version or above.
-) else (
+if %Install_Condition%==True (echo AnyDesk is already installed with the required version or above.) else (
     echo No AnyDesk Detected or AnyDesk is out of date.
     echo Installing AnyDesk...
     echo Closing Potential AnyDesk
