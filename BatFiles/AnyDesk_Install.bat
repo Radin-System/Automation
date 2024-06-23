@@ -1,8 +1,6 @@
 @echo off
 setlocal
 
-:: Compare Version File
-
 :: Path to AnyDesk executable and installer
 echo Setting Paths
 set AnyDesk_Path="C:\Program Files (x86)\AnyDesk"
