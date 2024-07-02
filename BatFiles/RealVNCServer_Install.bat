@@ -12,7 +12,6 @@ for /f "delims=" %%i in ('%RealVNC_Exe% --version') do set Installed_Version=%%i
     if "%Installed_Version%"=="" (set Installed_Version=0.0.0)
     goto compare
 
-
 echo Current Version  : %currentVersion%
 echo Required Version : %requiredVersion%
 
