@@ -6,7 +6,6 @@ echo Setting Paths
 set AnyDesk_Path="C:\Program Files (x86)\AnyDesk"
 set AnyDesk_Exe="C:\Program Files (x86)\AnyDesk\AnyDesk.exe"
 set AnyDesk_On_Server="\\%DEPLOYMENT_SERVER%\%DEPLOYMENT_PATH%\Software\AnyDesk\%ANYDESK_VERSION%\AnyDesk.exe"
-set AnyDesk_Install="C:\Program Files (x86)\AnyDesk\AnyDesk(Install).exe"
 
 :: Function to get the installed version of AnyDesk
 echo Getting The Installed Version
@@ -28,15 +27,14 @@ if %Install_Condition%==True (echo AnyDesk is already installed with the require
     echo Installing AnyDesk...
     echo Closing Potential AnyDesk
     taskkill /IM anydesk.exe /F
-    copy %AnyDesk_On_Server% %AnyDesk_Install% /Y
-    %AnyDesk_Install% --install %AnyDesk_Path% --start-with-win --create-desktop-icon
-    del %AnyDesk_Install% /q
+    copy %AnyDesk_On_Server% %AnyDesk_Exe% /Y
+    %AnyDesk_Exe% --install %AnyDesk_Path% --start-with-win --create-desktop-icon
+    del %AnyDesk_Exe% /q
     %AnyDesk_Exe%
 )
 
 echo AnyDesk Folder    : %AnyDesk_Path%
 echo AnyDesk Exe       : %AnyDesk_Exe%
-echo AnyDesk Installer : %AnyDesk_Install%
 echo Server Path       : %AnyDesk_On_Server%
 
 endlocal
