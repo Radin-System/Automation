@@ -1,57 +1,58 @@
-function Compare-Versions {
-    param (
-        [string]$version1,
-        [string]$version2
-    )
+# Define paths
+$certPath = ".\Certificates\Certificate.pfx"  # Path to your certificate file
+$certPassword = "$env:MyCertPassword"  # Password for the PFX file, if applicable
+$scriptFolders = @(".\Scripts", ".\AdminTools")  # Folders containing scripts
 
-    # Split the version numbers into components
-    $major1, $minor1, $patch1 = $version1 -split '\.'
-    $major2, $minor2, $patch2 = $version2 -split '\.'
+# Import the certificate
+try {
+    $cert = Import-PfxCertificate -FilePath $certPath -CertStoreLocation Cert:\CurrentUser\My -Password (ConvertTo-SecureString -String $certPassword -AsPlainText -Force)
+} catch {
+    Write-Host "Error importing certificate: $_"
+    exit
+}
 
-    # Pad components to ensure proper numerical comparison
-    $major1 = $major1.PadLeft(3, '0')
-    $minor1 = $minor1.PadLeft(3, '0')
-    $patch1 = $patch1.PadLeft(3, '0')
-    $major2 = $major2.PadLeft(3, '0')
-    $minor2 = $minor2.PadLeft(3, '0')
-    $patch2 = $patch2.PadLeft(3, '0')
+# Ensure the certificate was imported
+if (-not $cert) {
+    Write-Host "Certificate could not be imported."
+    exit
+}
 
-    # Concatenate components to create comparable strings
-    $v1 = "$major1$minor1$patch1"
-    $v2 = "$major2$minor2$patch2"
+# Get the certificate by subject name
+$commonName = ($cert.Subject -split ',')[0] -replace 'CN=', ''
+$cert = Get-ChildItem -Path Cert:\CurrentUser\My | Where-Object { $_.Subject -like "*CN=$commonName*" }
 
-    # Compare versions
-    if ($v1 -ge $v2) {
-        return $true
+# Check if certificate was found
+if (-not $cert) {
+    Write-Host "Certificate with CN=$commonName not found."
+    exit
+}
+
+# Loop through each folder and sign all .ps1 files
+foreach ($folder in $scriptFolders) {
+    if (Test-Path $folder) {
+        Get-ChildItem -Path $folder -Recurse -Filter "*.ps1" | ForEach-Object {
+            try {
+                Write-Host "Signing script: $_"
+                $result = Set-AuthenticodeSignature -FilePath $_.FullName -Certificate $cert
+                if ($result.Status -ne 'Valid') {
+                    Write-Host "Failed to sign script: $_.FullName - Status: $($result.Status)"
+                }
+            } catch {
+                Write-Host "Error signing script: $_.FullName - $_"
+            }
+        }
     } else {
-        return $false
+        Write-Host "Folder not found: $folder"
     }
 }
 
-function Write-Log {
-    param (
-        [string]$LogContent,    
-        [string]$RemoteLogFile = "\\$env:DEPLOYMENT_SERVER\$env:DEPLOYMENT_PATH\Logs\$env:COMPUTERNAME.txt",
-        [string]$LocalLogFile = "C:\Static\Logs\Main.txt",
-        [string]$LogLevel = "Info",
-        [string]$ScriptName = $MyInvocation.MyCommand.Name
-    )
+Write-Host "All scripts have been processed."
 
-    # Get the current timestamp
-    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-
-    # Format the log entry
-    $logEntry = "$timestamp - $ScriptName - $LogLevel - $LogContent"
-
-    # Append the log entry to the file
-    Add-Content -Path $RemoteLogFile -Value $logEntry
-    Add-Content -Path $LocalLogFile -Value $logEntry
-}
 # SIG # Begin signature block
 # MIIIRwYJKoZIhvcNAQcCoIIIODCCCDQCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU43lUnXoqT6YV8Lkpvp4OeKBq
-# EMigggW9MIIFuTCCBKGgAwIBAgITewAAABS4ZDzBI0YHrAAAAAAAFDANBgkqhkiG
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUKq0ddt/YbcVRButIaD2lYBfH
+# Ks2gggW9MIIFuTCCBKGgAwIBAgITewAAABS4ZDzBI0YHrAAAAAAAFDANBgkqhkiG
 # 9w0BAQsFADA8MRIwEAYKCZImiZPyLGQBGRYCaXIxFDASBgoJkiaJk/IsZAEZFgRy
 # c3RvMRAwDgYDVQQDEwdyc3RvLUNBMB4XDTI0MDgyMjE0MTEwNFoXDTI1MDgyMjE0
 # MTEwNFowaTESMBAGCgmSJomT8ixkARkWAmlyMRQwEgYKCZImiZPyLGQBGRYEcnN0
@@ -86,11 +87,11 @@ function Write-Log {
 # BgNVBAMTB3JzdG8tQ0ECE3sAAAAUuGQ8wSNGB6wAAAAAABQwCQYFKw4DAhoFAKB4
 # MBgGCisGAQQBgjcCAQwxCjAIoAKAAKECgAAwGQYJKoZIhvcNAQkDMQwGCisGAQQB
 # gjcCAQQwHAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkE
-# MRYEFJGBK7vLtvfdlr6VQBsLFnU8I15HMA0GCSqGSIb3DQEBAQUABIIBACOcFFu9
-# tNPoR1jjb4TMClAI+4Q29uUjFori3ZMgkR4c0JVcsUCD4zx8hsZ/L2Ppd2F136a4
-# CYZOxDhbl6yqpR1zi+7x4w3hCWP74jAZI+kriLMi+uS2ztlFEE91NrSjsqay4TCH
-# cdcxTao8wziPqGrSy4wTd7b/7ggycoqQ3DLN6ToXLHBUFvrGEfzG6IJYvYTt0LJc
-# Ms+3uRsBMP01P0enwy4AMOUFUBBSRl3Gt5d1utDcGoUmHBR1HLJXJIk2sdsVcEd3
-# ec4sjhlhk3wyuSGLMoooyTl+68aU0Hl2S0pGduFHyJdA2Tdh7W/ztkWrAArHGezR
-# uErXDqZ7oEC6QJM=
+# MRYEFCoCQYm3h3YxVPdMXn4hKQjWocnhMA0GCSqGSIb3DQEBAQUABIIBAJRjzHyH
+# MaD9hfP6uHcCt8oeTWuDhY3IwNwN1/ZOnEPLNm4zSfu1fSZd0/Rk3C/syxgoIffh
+# M+ZH/uxxzKOASYS2lPHwl//7kPVRGY/T2gjwuuFPE2ZK2JbYu+1JB0Oy9Fn2ML71
+# 5sdxvTa4Ux0OqI7WXa3Ia/wrGWpLm4pKLszxerxXlpVstb6cevM5LqeB/g/49kzJ
+# Dn2GB5xpOPmKeoAJVqqzu6rrLKM5ltFfarr0OgItVn+meuXVUqxkxlv2EhuFrDfE
+# zHHfqBaWFUOBJQY17jN4GJyQA7/PmBWdZtiGNfWPkId8gJkfaIRgwtx5xfqltNUA
+# seKnjQJgY2UR2OM=
 # SIG # End signature block
