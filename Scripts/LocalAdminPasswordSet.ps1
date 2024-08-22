@@ -7,8 +7,21 @@
 # Define the path to the stored encryption Key and IV
 $encryptionKeyPath = "C:\Static\Keys\LocalAdminKey.bin"
 $encryptionIVPath = "C:\Static\Keys\LocalAdminIV.bin"
+$encryptionGUIDPath = "C:\Static\Keys\LocalAdminID.txt"
 
 try {
+    if (Test-Path $guidFilePath) {
+        # Read the GUID from the file
+        $guid = [System.IO.File]::ReadAllText($encryptionGUIDPath)
+        
+        # Log the GUID
+        Write-Log "GUID read from file: $guid"
+        
+        # Optionally log to a file or other logging mechanism
+        # Write-Log -LogContent "GUID: $guid" -LogLevel "Info"
+    } else {
+        Write-Host "GUID file not found at $guidFilePath"
+    }
     # Log the start of the script
     Write-Log -LogContent "Script started. Preparing to load encryption key and IV." -LogLevel "Info"
 
@@ -57,8 +70,8 @@ try {
 # SIG # Begin signature block
 # MIIIRwYJKoZIhvcNAQcCoIIIODCCCDQCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU0z44Q8XgL8GcUSFakfkvmalo
-# 99KgggW9MIIFuTCCBKGgAwIBAgITewAAABS4ZDzBI0YHrAAAAAAAFDANBgkqhkiG
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU8+Y6UwtpKTdMEbTNRjF08kkO
+# +pigggW9MIIFuTCCBKGgAwIBAgITewAAABS4ZDzBI0YHrAAAAAAAFDANBgkqhkiG
 # 9w0BAQsFADA8MRIwEAYKCZImiZPyLGQBGRYCaXIxFDASBgoJkiaJk/IsZAEZFgRy
 # c3RvMRAwDgYDVQQDEwdyc3RvLUNBMB4XDTI0MDgyMjE0MTEwNFoXDTI1MDgyMjE0
 # MTEwNFowaTESMBAGCgmSJomT8ixkARkWAmlyMRQwEgYKCZImiZPyLGQBGRYEcnN0
@@ -93,11 +106,11 @@ try {
 # BgNVBAMTB3JzdG8tQ0ECE3sAAAAUuGQ8wSNGB6wAAAAAABQwCQYFKw4DAhoFAKB4
 # MBgGCisGAQQBgjcCAQwxCjAIoAKAAKECgAAwGQYJKoZIhvcNAQkDMQwGCisGAQQB
 # gjcCAQQwHAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkE
-# MRYEFIzKZztXbVuT6ldcUf0UVnV0Y0NtMA0GCSqGSIb3DQEBAQUABIIBAFR5eoiM
-# zkHtH8mexEeL+NxXxH++mRyESkz99Ak8urgeYsY9dj8yqnTNIB3hW4LLJgK9yOPy
-# z40lvKpNOXyRVS03zfRZvHgjHOBYrAElHPw5SoJAuxYuvJFNSLll/u+l/LUbocle
-# tmv0a5Qnj8HHlfrj/NgKwWR2GH1jhN1ZdHW+F7eLtDf5Nk2OHhEoNi+rP+wyAmaQ
-# 8F+6D7hzWEiQJx+3X4YUjpRFCP9sY4DpcH+liiLjvqzav+GFpMnomsIHrIuwsoyi
-# NxJorFzMvmq4jl5MY+5rM5XQFjx2t8GTybeyY5vTRL5FvxpztSuLjlCgLn/AKTLe
-# w+HmOKSUUoVDTwc=
+# MRYEFDobZlEa5GouVnAVHO9WNywI1EnuMA0GCSqGSIb3DQEBAQUABIIBADJ0Fogj
+# INFUTDkDzWiCeXhITbw8lg/y1i7dQHReVzL3SeWVfxg/IfhFRSFlae7hhsuwTa5b
+# SnEazuZI57DfI/ttPz3U/TzmbLQIrJ7U0hcqZbe1DAYFfyT8O3Cry0u4yCDwKMe+
+# fvkiDcyE8Tv8kOSkBZaPbbTXyJ5yniTsHJfioYoDYt1a/UU6CHiTo+yH5EUs8XYA
+# mS9MEOet2cS0lfM1Gx8LyVC4CM2u8Lreazbjl5w/kEmMAIJBUzOhJU9Hr1peCC2G
+# M+4MffxWPdsdxWuPKJLHvtWY2bMQulKUlrX3Ebs37p/8F0Jq2F84VRPpfzBwbXhs
+# mnUTIFuowMjOOiI=
 # SIG # End signature block

@@ -16,10 +16,15 @@ $encryptionIV = $aes.IV
 # Store the encryption key and IV securely (e.g., in a file or a secure vault)
 $encryptionKeyPath = "\\$env:DEPLOYMENT_SERVER\$env:DEPLOYMENT_PATH\Static\Keys\LocalAdminKey.bin"
 $encryptionIVPath = "\\$env:DEPLOYMENT_SERVER\$env:DEPLOYMENT_PATH\Static\Keys\LocalAdminIV.bin"
+$encryptionGUIDPath = "\\$env:DEPLOYMENT_SERVER\$env:DEPLOYMENT_PATH\Static\Keys\LocalAdminID.txt"
 
-# Save key files
+# Generate a GUID for the key
+$keyGUID = [guid]::NewGuid().ToString()
+
+# Save key files and GUID
 [System.IO.File]::WriteAllBytes($encryptionKeyPath, $encryptionKey)
 [System.IO.File]::WriteAllBytes($encryptionIVPath, $encryptionIV)
+[System.IO.File]::WriteAllText($encryptionGUIDPath, $keyGUID)
 
 # Encrypt the password
 $encryptor = $aes.CreateEncryptor($encryptionKey, $encryptionIV)
@@ -35,8 +40,8 @@ $aes.Dispose()
 # SIG # Begin signature block
 # MIIIRwYJKoZIhvcNAQcCoIIIODCCCDQCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUSwLDtQn64+zZqMDHZiop5NWF
-# GFmgggW9MIIFuTCCBKGgAwIBAgITewAAABS4ZDzBI0YHrAAAAAAAFDANBgkqhkiG
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUj62L0aWv+833fqxfcJHkmc1h
+# L1SgggW9MIIFuTCCBKGgAwIBAgITewAAABS4ZDzBI0YHrAAAAAAAFDANBgkqhkiG
 # 9w0BAQsFADA8MRIwEAYKCZImiZPyLGQBGRYCaXIxFDASBgoJkiaJk/IsZAEZFgRy
 # c3RvMRAwDgYDVQQDEwdyc3RvLUNBMB4XDTI0MDgyMjE0MTEwNFoXDTI1MDgyMjE0
 # MTEwNFowaTESMBAGCgmSJomT8ixkARkWAmlyMRQwEgYKCZImiZPyLGQBGRYEcnN0
@@ -71,11 +76,11 @@ $aes.Dispose()
 # BgNVBAMTB3JzdG8tQ0ECE3sAAAAUuGQ8wSNGB6wAAAAAABQwCQYFKw4DAhoFAKB4
 # MBgGCisGAQQBgjcCAQwxCjAIoAKAAKECgAAwGQYJKoZIhvcNAQkDMQwGCisGAQQB
 # gjcCAQQwHAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkE
-# MRYEFJGa5djPWBwWxgr+jt/IK1K6h9hqMA0GCSqGSIb3DQEBAQUABIIBAG9/7l/K
-# 4pqjrtZc3+vjZJo2xKES0kzj9VnCgx8mdnoffx+gfxvkZPUl5IPYzuI417xEyiuX
-# H0F2p8EWi3Qcs9sUV7Am1fjVtu34Zr7DmI6vQZG8bMxRSBn6Ltxwl0FHz1E67vjE
-# UMGiPqJJ1kpzBa1O79Q2J2G+sAZr6ELB6Y5oYSmJe1vVoGa5HDMsxuVBvzn9yodH
-# FZf17LjprKF+nb7Td45Js9xBEqtyNCw/vb9qpIPTFXJXFvv50EyrK/RTLrP0dkfJ
-# vhgKGV+wmZL1NRuSd/6XXO3Kevqz7YzFzZZQf0EkPG5XGFSW6CzhpY6Hmsjl5U6y
-# 1HzFmRIAN8Bwl28=
+# MRYEFFDiv1Mv68JewilRhNg85CMr/GN7MA0GCSqGSIb3DQEBAQUABIIBAJY6MDrn
+# jIMLQ1S/UvAsyynOKD2eJLpHtWp0XIPAEnue2CYcPycbESebaRmX+qO9nXzTVdGy
+# JG79JxCo8M7iwXqSO7GS1o/TKX4vXbrCwJUqQoTlm7+V/hPdIDcrN4wwaVdPXRgu
+# FhWci2EgM7BuKTd6FtQDigN4KAlenpiM2cKnd+cSufIvcxz6XlEiafeoTfjH/CD7
+# crfLLGE/kBMfFu1/zZUOEN26RZ8xaR55EDgcYz6HQIaEo5XOMxaDs8LB56p80GLY
+# NDdn1X7HpYcsmNOLuvDsMtmIVzx2Y41npm5qcKSqFqYhi3BtFMNumVZ9NCDhPtPT
+# WYlhB90Sg9r3eww=
 # SIG # End signature block

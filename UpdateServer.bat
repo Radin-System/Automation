@@ -1,5 +1,8 @@
 @ECHO OFF
 
+echo ##---------- Signing Scripts ----------##
+powershell .\SginScripts.ps1
+
 echo ##---------- Deleting Server Files ----------##
 set SCRIPTS_PATH="\\%DEPLOYMENT_SERVER%\%DEPLOYMENT_PATH%\Static\Scripts\"
 del %SCRIPTS_PATH%\* /q

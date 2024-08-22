@@ -31,8 +31,8 @@ function Compare-Versions {
 function Write-Log {
     param (
         [string]$LogContent,    
-        [string]$RemoteLogFile = "\\$env:DEPLOYMENT_SERVER\$env:DEPLOYMENT_PATH\Logs\$env:COMPUTERNAME.txt",
-        [string]$LocalLogFile = "C:\Static\Logs\Main.txt",
+        [string]$RemoteLogFile = "\\$env:DEPLOYMENT_SERVER\$env:DEPLOYMENT_PATH\Static\Logs\$env:COMPUTERNAME.txt",
+        [string]$LocalLogFile = "C:\Static\Logs\$env:COMPUTERNAME.txt",
         [string]$LogLevel = "Info",
         [string]$ScriptName = $MyInvocation.MyCommand.Name
     )
@@ -50,8 +50,8 @@ function Write-Log {
 # SIG # Begin signature block
 # MIIIRwYJKoZIhvcNAQcCoIIIODCCCDQCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU43lUnXoqT6YV8Lkpvp4OeKBq
-# EMigggW9MIIFuTCCBKGgAwIBAgITewAAABS4ZDzBI0YHrAAAAAAAFDANBgkqhkiG
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUzyiNWmDVVJLOzb81qgUxDoNc
+# YDigggW9MIIFuTCCBKGgAwIBAgITewAAABS4ZDzBI0YHrAAAAAAAFDANBgkqhkiG
 # 9w0BAQsFADA8MRIwEAYKCZImiZPyLGQBGRYCaXIxFDASBgoJkiaJk/IsZAEZFgRy
 # c3RvMRAwDgYDVQQDEwdyc3RvLUNBMB4XDTI0MDgyMjE0MTEwNFoXDTI1MDgyMjE0
 # MTEwNFowaTESMBAGCgmSJomT8ixkARkWAmlyMRQwEgYKCZImiZPyLGQBGRYEcnN0
@@ -86,11 +86,11 @@ function Write-Log {
 # BgNVBAMTB3JzdG8tQ0ECE3sAAAAUuGQ8wSNGB6wAAAAAABQwCQYFKw4DAhoFAKB4
 # MBgGCisGAQQBgjcCAQwxCjAIoAKAAKECgAAwGQYJKoZIhvcNAQkDMQwGCisGAQQB
 # gjcCAQQwHAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkE
-# MRYEFJGBK7vLtvfdlr6VQBsLFnU8I15HMA0GCSqGSIb3DQEBAQUABIIBACOcFFu9
-# tNPoR1jjb4TMClAI+4Q29uUjFori3ZMgkR4c0JVcsUCD4zx8hsZ/L2Ppd2F136a4
-# CYZOxDhbl6yqpR1zi+7x4w3hCWP74jAZI+kriLMi+uS2ztlFEE91NrSjsqay4TCH
-# cdcxTao8wziPqGrSy4wTd7b/7ggycoqQ3DLN6ToXLHBUFvrGEfzG6IJYvYTt0LJc
-# Ms+3uRsBMP01P0enwy4AMOUFUBBSRl3Gt5d1utDcGoUmHBR1HLJXJIk2sdsVcEd3
-# ec4sjhlhk3wyuSGLMoooyTl+68aU0Hl2S0pGduFHyJdA2Tdh7W/ztkWrAArHGezR
-# uErXDqZ7oEC6QJM=
+# MRYEFJotSAtMjcPkZAvLc0mFoUBGZN0XMA0GCSqGSIb3DQEBAQUABIIBAJmzFaRC
+# NdNHH9+a59bMoApxk+sST43m69WOhcxZVHaVHGd/KL32VqrQa8J5JeZUTAo5xIbK
+# ROxgmJsrxPAc7SannBvkMIO7sgxyhPVq/bauxOqgcr17aOK9oyddLYGENnKHCvsB
+# UfPqNwneXNdDjE33i9FcJLZWxn/Tw66R1N3ma95x0yJGjFXwZ3TgT35uhDCkK2Vb
+# i0jIIHXrlLqcmQM+Cl8AoV+MSn66psxy2qMjr8dvKiYl34LSW/tpQYv2n5jqjZ11
+# KiNEkii1tdBpek9VOQHzR9Y5JQQp5vHltfW1fHQbwFE0lTVeEJ7QDuPVcK5etvk1
+# kVo09r/INAFGvug=
 # SIG # End signature block
