@@ -2,7 +2,7 @@
 
 set SCRIPTS_PATH="\\%DEPLOYMENT_SERVER%\%DEPLOYMENT_PATH%\Static\Scripts\"
 
-copy "BatFiles\*" %SCRIPTS_PATH% /Y
+copy "Scripts\*" %SCRIPTS_PATH% /Y
 del "c:\static\Scripts\*" /q
 
 GPUpdate /force
