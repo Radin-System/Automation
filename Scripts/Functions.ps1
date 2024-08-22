@@ -33,15 +33,14 @@ function Write-Log {
         [string]$LogContent,    
         [string]$RemoteLogFile = "\\$env:DEPLOYMENT_SERVER\$env:DEPLOYMENT_PATH\Static\Logs\$env:COMPUTERNAME.txt",
         [string]$LocalLogFile = "C:\Static\Logs\$env:COMPUTERNAME.txt",
-        [string]$LogLevel = "Info",
-        [string]$ScriptName = $MyInvocation.MyCommand.Name
+        [string]$LogLevel = "Info"
     )
 
     # Get the current timestamp
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 
     # Format the log entry
-    $logEntry = "$timestamp - $ScriptName - $LogLevel - $LogContent"
+    $logEntry = "$timestamp - $LogLevel - $LogContent"
 
     # Print log first
     Write-Host "$LogLevel - $LogContent"
@@ -54,8 +53,8 @@ function Write-Log {
 # SIG # Begin signature block
 # MIIIRwYJKoZIhvcNAQcCoIIIODCCCDQCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUUpJm1CYi0a04h3jWKrlRYaoB
-# ai6gggW9MIIFuTCCBKGgAwIBAgITewAAABS4ZDzBI0YHrAAAAAAAFDANBgkqhkiG
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUcPGfwMDn5YvdUgtD2QUZacIE
+# 8YCgggW9MIIFuTCCBKGgAwIBAgITewAAABS4ZDzBI0YHrAAAAAAAFDANBgkqhkiG
 # 9w0BAQsFADA8MRIwEAYKCZImiZPyLGQBGRYCaXIxFDASBgoJkiaJk/IsZAEZFgRy
 # c3RvMRAwDgYDVQQDEwdyc3RvLUNBMB4XDTI0MDgyMjE0MTEwNFoXDTI1MDgyMjE0
 # MTEwNFowaTESMBAGCgmSJomT8ixkARkWAmlyMRQwEgYKCZImiZPyLGQBGRYEcnN0
@@ -90,11 +89,11 @@ function Write-Log {
 # BgNVBAMTB3JzdG8tQ0ECE3sAAAAUuGQ8wSNGB6wAAAAAABQwCQYFKw4DAhoFAKB4
 # MBgGCisGAQQBgjcCAQwxCjAIoAKAAKECgAAwGQYJKoZIhvcNAQkDMQwGCisGAQQB
 # gjcCAQQwHAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkE
-# MRYEFIP67xVxIwKsrWMaatKsoGq2qh4bMA0GCSqGSIb3DQEBAQUABIIBAAtpHl7c
-# 4HaeuPOxLbCxtBIkL1fNumj5QueIWN78yudkYZ57LuOTXRkL4y054eEweq0YBep8
-# V4ooow29hIXcYQsQxbCP0qqxIRdkKJHRFwwCxcQrkTP9wkdPgR1OPnxDXEr5G1H8
-# H/KU33LeeanMkweOZo7ok/KpYW+tqa+lPIlblGAEHObbubNG8dyspimKYyCn3Hf2
-# lFTQjmZDUGaBZntOFfSjJPIeQyC8EXKTJPCQ1vLFsWZ3k1eaisR8AsjqBI5fOkUG
-# 9Vvb1DHa92TEz/lc9J90Q4LYsZLdgh7mvdbDx9pO5P6IOKO+mKrZIMU1BnHMGwAN
-# 1mz5Yzg/caxLRV8=
+# MRYEFLFlJ2COVz/dMVuCMKb6u3uMjmDhMA0GCSqGSIb3DQEBAQUABIIBAITUdfAY
+# yjtL04piP4A3Ieefp7McVAqsWcv1l+3ucND8pikg1alhWddLH1cB16yjL1gz3h5L
+# et4G5xdD05H/rF/BI3mFFaPBbHpI9U48mmqbYRQFzHMAaEUYSUlJRSVxSrn1KuwA
+# P7frN2JD/wrtVKb+/bV3nahszD7mRQM7NIaKq4g4d20YXJHtLVwLD8MO7MM1HnHc
+# F9cQ6LtuL0XlzRxPO9W4RPdarNJNXOmcWUBrwt+SyRR2LJVDgSl7DUSkXgqecR26
+# a6N4KkFjcPyhrdcFFjl0ArORFoAza0qUbYyFf+4bzws2iu+RRKxrfQgiQhSWZREe
+# YZIOOWlC7bBt2Ok=
 # SIG # End signature block
