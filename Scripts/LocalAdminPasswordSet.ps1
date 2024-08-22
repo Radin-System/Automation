@@ -10,26 +10,26 @@ $encryptionIVPath = "C:\Static\Keys\LocalAdminIV.bin"
 $encryptionGUIDPath = "C:\Static\Keys\LocalAdminID.txt"
 
 try {
-    if (Test-Path $guidFilePath) {
+    # Log the start of the script
+    Write-Log -LogContent "Script started. Loading [key, IV, GUID]" -LogLevel "Info"
+
+    if (Test-Path $encryptionGUIDPath) {
         # Read the GUID from the file
         $guid = [System.IO.File]::ReadAllText($encryptionGUIDPath)
         
         # Log the GUID
-        Write-Log "GUID read from file: $guid"
+        Write-Log "GUID of Password: $guid"
         
         # Optionally log to a file or other logging mechanism
         # Write-Log -LogContent "GUID: $guid" -LogLevel "Info"
     } else {
-        Write-Host "GUID file not found at $guidFilePath"
+        Write-Log "GUID not found !" -LogLevel "Warning"
     }
-    # Log the start of the script
-    Write-Log -LogContent "Script started. Preparing to load encryption key and IV." -LogLevel "Info"
-
     # Load the encryption key and IV
     $encryptionKey = [System.IO.File]::ReadAllBytes($encryptionKeyPath)
     $encryptionIV = [System.IO.File]::ReadAllBytes($encryptionIVPath)
 
-    Write-Log -LogContent "Encryption key and IV loaded successfully." -LogLevel "Info"
+    Write-Log -LogContent "Fieles Loaded." -LogLevel "Info"
 
     # Get the encrypted password from the environment variable
     $encryptedPassword = $env:LOCAL_ADMIN_PASSWORD
@@ -37,7 +37,7 @@ try {
         throw "Environment variable LOCAL_ADMIN_PASSWORD is not set or empty."
     }
 
-    Write-Log -LogContent "Encrypted password retrieved from environment variable." -LogLevel "Info"
+    Write-Log -LogContent "Decrypting Local." -LogLevel "Info"
 
     # Decrypt the password
     $aes = [System.Security.Cryptography.Aes]::Create()
@@ -70,8 +70,8 @@ try {
 # SIG # Begin signature block
 # MIIIRwYJKoZIhvcNAQcCoIIIODCCCDQCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU8+Y6UwtpKTdMEbTNRjF08kkO
-# +pigggW9MIIFuTCCBKGgAwIBAgITewAAABS4ZDzBI0YHrAAAAAAAFDANBgkqhkiG
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUHxmZsac0CNMWS8yZG5kL2q+y
+# zRSgggW9MIIFuTCCBKGgAwIBAgITewAAABS4ZDzBI0YHrAAAAAAAFDANBgkqhkiG
 # 9w0BAQsFADA8MRIwEAYKCZImiZPyLGQBGRYCaXIxFDASBgoJkiaJk/IsZAEZFgRy
 # c3RvMRAwDgYDVQQDEwdyc3RvLUNBMB4XDTI0MDgyMjE0MTEwNFoXDTI1MDgyMjE0
 # MTEwNFowaTESMBAGCgmSJomT8ixkARkWAmlyMRQwEgYKCZImiZPyLGQBGRYEcnN0
@@ -106,11 +106,11 @@ try {
 # BgNVBAMTB3JzdG8tQ0ECE3sAAAAUuGQ8wSNGB6wAAAAAABQwCQYFKw4DAhoFAKB4
 # MBgGCisGAQQBgjcCAQwxCjAIoAKAAKECgAAwGQYJKoZIhvcNAQkDMQwGCisGAQQB
 # gjcCAQQwHAYKKwYBBAGCNwIBCzEOMAwGCisGAQQBgjcCARUwIwYJKoZIhvcNAQkE
-# MRYEFDobZlEa5GouVnAVHO9WNywI1EnuMA0GCSqGSIb3DQEBAQUABIIBADJ0Fogj
-# INFUTDkDzWiCeXhITbw8lg/y1i7dQHReVzL3SeWVfxg/IfhFRSFlae7hhsuwTa5b
-# SnEazuZI57DfI/ttPz3U/TzmbLQIrJ7U0hcqZbe1DAYFfyT8O3Cry0u4yCDwKMe+
-# fvkiDcyE8Tv8kOSkBZaPbbTXyJ5yniTsHJfioYoDYt1a/UU6CHiTo+yH5EUs8XYA
-# mS9MEOet2cS0lfM1Gx8LyVC4CM2u8Lreazbjl5w/kEmMAIJBUzOhJU9Hr1peCC2G
-# M+4MffxWPdsdxWuPKJLHvtWY2bMQulKUlrX3Ebs37p/8F0Jq2F84VRPpfzBwbXhs
-# mnUTIFuowMjOOiI=
+# MRYEFMyIl5zoRg1VncSfxPGzjesi/BQWMA0GCSqGSIb3DQEBAQUABIIBAH7nTnNi
+# 2xWKmOwkiu0b9CUskI/RApb4wvl95xN2RcIJQ/5+WiB5Z3VPiH8EVmmGT7F9ggmG
+# Z158A2OBa776sBUdwgJJRDdwRLkpXBdQhW42K1gFX0j9VlNSzReMf8KbAdBubh/8
+# 4lP74ZH3FpbPOggtK7sSta2MjJOlOEC2UvCrixvOC9669PqZvxPLuIH3SrdMIX7K
+# KXWwtIy/40QbeJFRbYhCZd9mfoy2wtxTCFxMdf0PIzyYd0ZZmz2yYimf0nbyCyQM
+# B9+B9OPD6pRUjpNo2ZY8KK3bADnjsCiAPJ5CYyPwvijzhd5utludIffyjYBO1tjh
+# +qNE+o+nZGmwfGs=
 # SIG # End signature block
