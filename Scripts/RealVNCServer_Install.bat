@@ -1,9 +1,14 @@
+:: Reqiered ENV:
+::  DEPLOYMENT_SERVER
+::  DEPLOYMENT_PATH
+::  REALVNC_VERSION
+
 @echo off
 
 echo Setting Paths
 set RealVNC_Path="C:\Program Files\RealVNC\VNC Server"
 set RealVNC_Exe="C:\Program Files\RealVNC\VNC Server\vncserver.exe"
-set RealVNC_On_Server="\\%DEPLOYMENT_SERVER%\%DEPLOYMENT_PATH%\Software\RealVNC\%ANYDESK_VERSION%\Server\RealVNC.msi"
+set RealVNC_On_Server="\\%DEPLOYMENT_SERVER%\%DEPLOYMENT_PATH%\Software\RealVNC\%REALVNC_VERSION%\Server\RealVNC.msi"
 set RealVNC_Install="C:\Program Files (x86)\AnyDesk\AnyDesk(Install).exe"
 
 :: Function to get the installed version of AnyDesk

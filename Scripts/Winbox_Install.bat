@@ -1,3 +1,8 @@
+:: Reqiered ENV:
+::  DEPLOYMENT_SERVER
+::  DEPLOYMENT_PATH
+::  WINBOX_VERSION
+
 @echo off
 setlocal enabledelayedexpansion
 

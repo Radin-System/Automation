@@ -1,3 +1,6 @@
+# Reqiered ENV:
+#   LOCAL_ADMIN_PASSWORD
+
 # Define the path to the stored encryption Key and IV
 $encryptionKeyPath = "C:\Static\Keys\LocalAdminKey.bin"
 $encryptionIVPath = "C:\Static\Keys\LocalAdminIV.bin"

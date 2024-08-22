@@ -1,3 +1,8 @@
+:: Reqiered ENV:
+::  DEPLOYMENT_SERVER
+::  DEPLOYMENT_PATH
+::  ANYDESK_VERSION
+
 @echo off
 setlocal
 

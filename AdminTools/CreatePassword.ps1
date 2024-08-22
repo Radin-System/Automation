@@ -1,3 +1,7 @@
+# Reqiered ENV:
+#   DEPLOYMENT_SERVER
+#   DEPLOYMENT_PATH
+
 # Prompt the user to enter a password
 $password = Read-Host -Prompt "Enter the password" -AsSecureString
 
