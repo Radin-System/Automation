@@ -1,5 +1,5 @@
 # Import the functions from MyFunctions.ps1
-. "C:\Path\To\MyFunctions.ps1"
+. ".\Functions.ps1"
 
 # Required ENV:
 #   LOCAL_ADMIN_PASSWORD
